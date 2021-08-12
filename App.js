@@ -6,6 +6,7 @@ import Routes from './src/routes';
 import AuthProvider from './src/contexts/auth';
 import firebase from './src/services/firebaseConnection';
 
+
 export default function myFinance() {
   return (
     <NavigationContainer>
