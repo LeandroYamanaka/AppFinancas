@@ -5,6 +5,7 @@ import {
 } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../../contexts/auth';
+import { ActivityIndicator } from 'react-native';
 
 
 export default function Signin() {
@@ -12,7 +13,8 @@ export default function Signin() {
     const navigation = useNavigation('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { signIn } = useContext(AuthContext);
+    const { signIn, loadingAuth } = useContext(AuthContext);
+
 
     function handleLogin() {
         signIn(email, password);
@@ -35,11 +37,18 @@ export default function Signin() {
                         autoCorrect={false}
                         autoCapitalize="none"
                         value={password}
-                        onChangeText={(text) => setPassword(text)} />
+                        onChangeText={(text) => setPassword(text)}
+                        secureTextEntry={true} />
 
                 </AreaInput>
                 <SubmitButton onPress={handleLogin}>
-                    <SubmitText>Acessar</SubmitText>
+                    {
+                        loadingAuth ? (
+                            <ActivityIndicator size={20} color="#FFF" />
+                        ) : (
+                            <SubmitText>Acessar</SubmitText>
+                        )
+                    }
                 </SubmitButton>
                 <Link onPress={() => navigation.navigate('SignUp')}>
                     <LinkText>Criar uma conta</LinkText>

@@ -6,6 +6,7 @@ import Picker from '../../components/Picker';
 import firebase from '../../services/firebaseConnection';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../../contexts/auth';
+import { format } from 'date-fns';
 
 export default function New() {
 
@@ -42,7 +43,7 @@ export default function New() {
         await firebase.database().ref('historico').child(uid).child(key).set({
             tipo: tipo,
             valor: parseFloat(valor),
-            date: new Date()
+            date: format(new Date(), 'dd/MM/yy')
         })
 
         let user = firebase.database().ref('users').child(uid);
